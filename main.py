@@ -1,6 +1,6 @@
-from app.GUI.gui import PyshareGUI
+import app.GUI.gui
 
-pyshare = PyshareGUI()
+pyshare = app.GUI.gui.PyshareGUI()
 
 if __name__ == "__main__":
     pyshare.mainloop()
