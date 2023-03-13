@@ -1,5 +1,4 @@
 """Module defines class SelectFileWindow"""
-from os.path import commonpath
 from typing import List
 import customtkinter
 import app.GUI.picked_files as picked_files
@@ -15,12 +14,7 @@ class SelectFileWindow(customtkinter.CTkToplevel):
         self.title("PyShare | select files")
         self.resizable(width=False, height=False)
         self.button_style = customtkinter.CTkFont(size=24, family="Arial")
-        self.file_paths: List[str] = [
-            "file_1",
-            "file_2",
-            "file_3",
-            "file_1",
-        ]
+        self.file_paths: List[str] = []
         self.dir_path = ""
 
         self.picker_label = customtkinter.CTkLabel(
@@ -46,8 +40,9 @@ class SelectFileWindow(customtkinter.CTkToplevel):
         )
         self.picked_files_label.grid(column=0, columnspan=4, row=3, sticky="ew")
 
-        self.list_file = picked_files.PickedFilesFrame(self, self.file_paths, width=400)
-        self.list_file.grid(row=4, column=0, columnspan=4, padx=10, pady=10)
+        # Set the picked files lists
+        self.list_file = picked_files.PickedFilesFrame(self, self.file_paths)
+        self.list_file.grid(column=0, columnspan=4, padx=10, pady=10)
 
         self.pick_file_btn = customtkinter.CTkButton(
             master=self,
@@ -79,6 +74,9 @@ class SelectFileWindow(customtkinter.CTkToplevel):
             column=1, columnspan=2, row=6, sticky="ew", pady=(10, 30)
         )
 
+        self.list_file = picked_files.PickedFilesFrame(self, self.file_paths, width=400)
+        self.list_file.grid(row=4, column=0, columnspan=4, padx=10, pady=10)
+
     def open_file_dialog(self) -> None:
         """
         Opens the file picker pop up
@@ -89,6 +87,7 @@ class SelectFileWindow(customtkinter.CTkToplevel):
             if self.file_path.name not in self.file_paths:
                 self.file_paths.append(self.file_path.name)
                 print(self.file_paths)
+                self.list_file.display_files(self.file_paths)
         else:
             print("File already selected")
 
