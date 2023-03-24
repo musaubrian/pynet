@@ -2,6 +2,7 @@
 from typing import List
 import customtkinter
 import app.GUI.picked_files as picked_files
+from app.Server.server import PyshareServer
 
 
 class SelectFileWindow(customtkinter.CTkToplevel):
@@ -18,6 +19,9 @@ class SelectFileWindow(customtkinter.CTkToplevel):
         self.file_paths: List[str] = []
         self.dir_path = ""
 
+        self.server = PyshareServer()
+        self.pairing_key: str = self.server.create_pairing_key()
+
         self.picker_label = customtkinter.CTkLabel(
             master=self,
             text="Pick a file or a folder to transfer",
@@ -33,15 +37,16 @@ class SelectFileWindow(customtkinter.CTkToplevel):
             sticky="nsew",
         )
 
-        self.line = customtkinter.CTkLabel(master=self, text="- " * 55)
-        self.line.grid(column=0, columnspan=4, row=2)
-
-        self.picked_files_label = customtkinter.CTkLabel(
-            master=self, text="Files to transfer", font=self.button_style
+        self.pairing_key_label = customtkinter.CTkLabel(
+            master=self,
+            text=f"Pairing key: {self.pairing_key}",
+            font=self.button_style,
+            fg_color="blue",
         )
-        self.picked_files_label.grid(column=0, columnspan=4, row=3, sticky="ew")
+        self.pairing_key_label.grid(column=0, columnspan=5, row=2)
+        self.line = customtkinter.CTkLabel(master=self, text="- " * 55)
+        self.line.grid(column=0, columnspan=4, row=3)
 
-        # Set the picked files lists
         self.list_file = picked_files.PickedFilesFrame(self, self.file_paths)
         self.list_file.grid(column=0, columnspan=4, padx=10, pady=10)
 
@@ -59,7 +64,7 @@ class SelectFileWindow(customtkinter.CTkToplevel):
             master=self,
             text="Transfer",
             font=customtkinter.CTkFont(size=30, family="Arial", weight="bold"),
-            command=self.handle_transfer(),
+            command=self.handle_transfer,
         )
         self.start_transfer.grid(
             column=1, columnspan=2, row=6, sticky="ew", pady=(10, 30)

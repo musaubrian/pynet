@@ -34,10 +34,26 @@ class RecieveFileWindow(customtkinter.CTkToplevel):
             master=self,
             text="pair",
             font=customtkinter.CTkFont(size=24, family="Arial"),
-            command=self.get_key(),
+            command=self.get_key,
         )
-        self.pair.grid(row=3, column=0, columnspan=5, padx=30, pady=30, sticky="nsew")
+        self.pair.grid(row=4, column=0, columnspan=5, padx=30, pady=30, sticky="nsew")
+
+        self.error_label = customtkinter.CTkLabel(
+                self,
+                text="Input is invalid, try again",
+                fg_color="red",
+                font=customtkinter.CTkFont(size=25, family="Arial"),
+                )
+        self.error_label.grid(
+                row=3, column=0, columnspan=5, sticky="nsew", padx=30, pady=10
+                )
+        self.error_label.grid_remove()
 
     def get_key(self):
         """Get the key from the text box"""
-        print(f" key: {self.pairing_key.get()}")
+        key_value = self.pairing_key.get()
+        if len(key_value) != 9 and "-" not in key_value:
+            self.error_label.grid()
+        else:
+            self.error_label.grid_remove()
+            print(key_value)
