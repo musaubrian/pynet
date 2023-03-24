@@ -58,6 +58,7 @@ class PyshareGUI(customtkinter.CTk):
             or not self.select_file_window.winfo_exists()
         ):
             self.select_file_window = SelectFileWindow(self)
+            self.iconify()
         else:
             self.select_file_window.focus()
 

@@ -1,4 +1,5 @@
 """Module defines class SelectFileWindow"""
+from os import walk
 from typing import List
 import customtkinter
 import app.GUI.picked_files as picked_files
@@ -22,6 +23,7 @@ class SelectFileWindow(customtkinter.CTkToplevel):
         self.server = PyshareServer()
         self.pairing_key: str = self.server.create_pairing_key()
 
+        # Title
         self.picker_label = customtkinter.CTkLabel(
             master=self,
             text="Pick a file or a folder to transfer",
@@ -37,13 +39,12 @@ class SelectFileWindow(customtkinter.CTkToplevel):
             sticky="nsew",
         )
 
+        # pairing key label
         self.pairing_key_label = customtkinter.CTkLabel(
-            master=self,
-            text=f"Pairing key: {self.pairing_key}",
-            font=self.button_style,
-            fg_color="blue",
+            master=self, text=self.pairing_key, font=self.button_style
         )
         self.pairing_key_label.grid(column=0, columnspan=5, row=2)
+
         self.line = customtkinter.CTkLabel(master=self, text="- " * 55)
         self.line.grid(column=0, columnspan=4, row=3)
 
