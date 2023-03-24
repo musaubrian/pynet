@@ -36,7 +36,7 @@ class RecieveFileWindow(customtkinter.CTkToplevel):
             font=customtkinter.CTkFont(size=24, family="Arial"),
             command=self.get_key,
         )
-        self.pair.grid(row=4, column=0, columnspan=7, padx=30, pady=30, sticky="nsew")
+        self.pair.grid(row=4, column=0, columnspan=8, padx=30, pady=30, sticky="nsew")
 
         self.error_label = customtkinter.CTkLabel(
             self,
