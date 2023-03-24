@@ -1,6 +1,7 @@
 """Module defines a class PyshareGUI"""
 import customtkinter
 from app.GUI.file_picker import SelectFileWindow
+from app.GUI.receive_file import RecieveFileWindow
 
 
 class PyshareGUI(customtkinter.CTk):
@@ -22,13 +23,7 @@ class PyshareGUI(customtkinter.CTk):
             font=customtkinter.CTkFont(size=50, family="Arial"),
         )
         self.pyshare_logo.grid(
-            column=0,
-            columnspan=4,
-            row=0,
-            rowspan=2,
-            sticky="ew",
-            padx=20,
-            pady=(20, 5)
+            column=0, columnspan=4, row=0, rowspan=2, sticky="ew", padx=20, pady=(20, 5)
         )
         # Description below the PyShare name
         self.pyshare_description = customtkinter.CTkLabel(
@@ -42,16 +37,19 @@ class PyshareGUI(customtkinter.CTk):
 
         # Buttons to launch client | server
         self.send_button = customtkinter.CTkButton(
-            self, text="Send", command=self.open_file_popup, font=self.button_style
+            self, text="Send", command=self.open_send_popup, font=self.button_style
         )
         self.send_button.grid(row=3, column=0, columnspan=2, padx=30, pady=30)
 
         self.receive_button = customtkinter.CTkButton(
-            self, text="Receive", font=self.button_style
+            self,
+            text="Receive",
+            font=self.button_style,
+            command=self.open_recieve_popup,
         )
         self.receive_button.grid(row=3, column=2, columnspan=2, padx=30, pady=30)
 
-    def open_file_popup(self):
+    def open_send_popup(self):
         """
         Opens the file selector window
         """
@@ -60,5 +58,17 @@ class PyshareGUI(customtkinter.CTk):
             or not self.select_file_window.winfo_exists()
         ):
             self.select_file_window = SelectFileWindow(self)
+        else:
+            self.select_file_window.focus()
+
+    def open_recieve_popup(self):
+        """
+        Opens the receive popup window
+        """
+        if (
+            self.select_file_window is None
+            or not self.select_file_window.winfo_exists()
+        ):
+            self.select_file_window = RecieveFileWindow(self)
         else:
             self.select_file_window.focus()

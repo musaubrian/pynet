@@ -11,6 +11,7 @@ class SelectFileWindow(customtkinter.CTkToplevel):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.file_path = None
         self.title("PyShare | select files")
         self.resizable(width=False, height=False)
         self.button_style = customtkinter.CTkFont(size=24, family="Arial")
@@ -51,24 +52,14 @@ class SelectFileWindow(customtkinter.CTkToplevel):
             font=self.button_style,
         )
         self.pick_file_btn.grid(
-            column=0, columnspan=2, row=5, padx=30, pady=30, sticky="ew"
-        )
-
-        self.pick_dir_btn = customtkinter.CTkButton(
-            master=self,
-            text="Pick a folder",
-            command=self.open_dir_dialog,
-            font=self.button_style,
-        )
-        self.pick_dir_btn.grid(
-            column=2, columnspan=2, row=5, padx=30, pady=30, sticky="ew"
+            column=0, columnspan=5, row=5, padx=30, pady=30, sticky="ew"
         )
 
         self.start_transfer = customtkinter.CTkButton(
             master=self,
             text="Transfer",
-            font=customtkinter.CTkFont(size=24, family="Arial", weight="bold"),
-            command=self.handle_transfer,
+            font=customtkinter.CTkFont(size=30, family="Arial", weight="bold"),
+            command=self.handle_transfer(),
         )
         self.start_transfer.grid(
             column=1, columnspan=2, row=6, sticky="ew", pady=(10, 30)
