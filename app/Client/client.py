@@ -29,3 +29,34 @@ class PyshareClient:
             self.socket.AF_INET, self.socket.SOCK_STREAM
         )
         self.pyshare_client.connect((self.server_ip, self.port))
+
+    def strip_slashes(self, slashed_var: str) -> str:
+        """Strips the slashes from the filename,
+        which is sent as a file path"""
+        self.slashed_var = slashed_var
+        self.unclean_file_name = self.slashed_var.split("/") or self.slashed_var.split(
+            "\\"
+        )
+        self.actual_name = self.unclean_file_name[-1]
+        return self.actual_name
+
+    def receive_file(self):
+        while True:
+            self.file_data = self.pyshare_client.recv(1024).decode()
+            if not self.file_data:
+                break
+            elif self.file_data == "done":
+                self.pyshare_client.close()
+                break
+            else:
+                self.file_name, self.file_size = self.file_data.split()
+                self.actual_file_name = self.strip_slashes(self.file_name)
+                self.file_size = int(self.file_size)
+                self.received_data = b""
+
+                while len(self.received_data) < self.file_size:
+                    self.data_chunk = self.pyshare_client.recv(1024)
+                    self.received_data += self.data_chunk
+
+                with open(self.actual_file_name, "wb") as f:
+                    f.write(self.received_data)

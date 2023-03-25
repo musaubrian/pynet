@@ -1,5 +1,4 @@
 """Module server is the entry point for class server."""
-from os import walk
 import socket
 from typing import List
 
@@ -63,5 +62,6 @@ class PyshareServer:
             if self._remainder:
                 self._pyshare_client.sendall(self._file_data[-self._remainder :])
 
-            self._pyshare_client.close()
-            self._pyshare_server.close()
+        self._pyshare_client.sendall(b"done")
+        self._pyshare_client.close()
+        self._pyshare_server.close()
