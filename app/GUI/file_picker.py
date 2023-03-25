@@ -1,5 +1,4 @@
 """Module defines class SelectFileWindow"""
-from os import walk
 from typing import List
 import customtkinter
 import app.GUI.picked_files as picked_files
