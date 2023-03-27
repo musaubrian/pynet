@@ -1,7 +1,6 @@
 """module contains contains a class PyshareClient
 which is the entry point of the client operations"""
 import socket
-from typing import List
 
 
 class PyshareClient:
@@ -28,9 +27,10 @@ class PyshareClient:
         self.pyshare_client = self.socket.socket(
             self.socket.AF_INET, self.socket.SOCK_STREAM
         )
+        print(self._server_ip)
         self.pyshare_client.connect((self.server_ip, self.port))
 
-    def strip_slashes(self, slashed_var: str) -> str:
+    def _strip_slashes(self, slashed_var: str) -> str:
         """Strips the slashes from the filename,
         which is sent as a file path"""
         self.slashed_var = slashed_var
@@ -40,8 +40,9 @@ class PyshareClient:
         self.actual_name = self.unclean_file_name[-1]
         return self.actual_name
 
-    def receive_files(self):
+    def receive_files(self, pairing_key: str):
         """Receive ftrasfered data and writes to appropriate file name"""
+        self.connect_to_service(pairing_key)
         while True:
             self.file_data = self.pyshare_client.recv(1024).decode()
             if not self.file_data:
@@ -51,7 +52,7 @@ class PyshareClient:
                 break
             else:
                 self.file_name, self.file_size = self.file_data.split()
-                self.actual_file_name = self.strip_slashes(self.file_name)
+                self.actual_file_name = self._strip_slashes(self.file_name)
                 self.file_size = int(self.file_size)
                 self.received_data = b""
 

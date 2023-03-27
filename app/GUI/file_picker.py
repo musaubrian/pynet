@@ -18,7 +18,6 @@ class SelectFileWindow(customtkinter.CTkToplevel):
         self.button_style = customtkinter.CTkFont(size=24, family="Arial")
         self.file_paths: List[str] = []
         self.dir_path = ""
-
         self.server = PyshareServer()
         self.pairing_key: str = self.server.create_pairing_key()
 
@@ -86,11 +85,6 @@ class SelectFileWindow(customtkinter.CTkToplevel):
                 self.list_file.display_files(self.file_paths)
         else:
             print("File already selected")
-
-    def open_dir_dialog(self) -> None:
-        """ """
-        self.dir_path = customtkinter.filedialog.askdirectory()
-        print(f"Selected path: {self.dir_path}")
 
     def handle_transfer(self) -> None:
         """Handles the transfer logic"""

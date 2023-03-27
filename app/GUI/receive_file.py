@@ -9,7 +9,7 @@ class RecieveFileWindow(customtkinter.CTkToplevel):
         super().__init__(*args, **kwargs)
         self.title("Recieve file")
         self.resizable(width=False, height=False)
-        self.client = PyshareClient()
+        self.pyshare_client = PyshareClient()
 
         self.text_label = customtkinter.CTkLabel(
             master=self,
@@ -59,5 +59,5 @@ class RecieveFileWindow(customtkinter.CTkToplevel):
             self.error_label.grid()
         else:
             self.error_label.grid_remove()
-            self.client.connect_to_service(key_value)
-            self.client.receive_files()
+            print(key_value)
+            self.pyshare_client.receive_files(key_value)

@@ -41,7 +41,7 @@ class PyshareServer:
 
         Args::
             files_to_send(List[str]): list of the file names/path
-            to convert to bytes and send
+                to convert to bytes and send
         """
 
         for file in files_to_send:
@@ -56,11 +56,13 @@ class PyshareServer:
             for i in range(self._num_chunks):
                 self._start = i * self._chunk_size
                 self._end = (i + 1) * self._chunk_size
+                self._chunk = self._file_data[self._start : self._end]
+                self._pyshare_client.sendall(self._chunk)
 
-            self._chunk = self._file_data[self._start : self._end]
-            self._pyshare_client.sendall(self._chunk)
             if self._remainder:
                 self._pyshare_client.sendall(self._file_data[-self._remainder :])
+
+            print(f"Sent {file} successfully")
 
         self._pyshare_client.sendall(b"done")
         self._pyshare_client.close()
