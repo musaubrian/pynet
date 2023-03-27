@@ -1,5 +1,7 @@
 """module contains contains a class PyshareClient
 which is the entry point of the client operations"""
+import os
+from pathlib import Path
 import socket
 
 
@@ -35,8 +37,9 @@ class PyshareClient:
         """Strips the slashes from the filename,
         which is sent as a file path"""
         self.slashed_var = slashed_var
-        self.unclean_file_name = self.slashed_var.split("/")\
-                or self.slashed_var.split("\\")
+        self.unclean_file_name = self.slashed_var.split("/") or self.slashed_var.split(
+            "\\"
+        )
         self.actual_name = self.unclean_file_name[-1]
         return self.actual_name
 
@@ -56,11 +59,18 @@ class PyshareClient:
                 self.file_size = int(self.file_size)
                 self.received_data = b""
 
+                self.home_path = Path.home()
+                self.full_path = Path(
+                    os.path.join(
+                       self.home_path, "Desktop", "pyshare_received", self.actual_file_name
+                    )
+                )
+
                 while len(self.received_data) < self.file_size:
                     self.data_chunk = self.pyshare_client.recv(1024)
                     self.received_data += self.data_chunk
 
-                with open(self.actual_file_name, "wb") as f:
+                with open(self.full_path, "wb") as f:
                     f.write(self.received_data)
             self.done_receiving = True
 

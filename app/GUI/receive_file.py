@@ -81,7 +81,6 @@ class RecieveFileWindow(customtkinter.CTkToplevel):
             self.error_label.grid()
         else:
             self.error_label.grid_remove()
-            print(key_value)
             self.received = self.pyshare_client.receive_files(key_value)
             if self.received:
                 self.success_message.grid()
