@@ -94,4 +94,6 @@ class SelectFileWindow(customtkinter.CTkToplevel):
 
     def handle_transfer(self) -> None:
         """Handles the transfer logic"""
+        self.server.create_service()
+        self.server.send_files(files_to_send=self.file_paths)
         print("Transfer button clicked")
