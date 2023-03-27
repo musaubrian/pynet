@@ -4,6 +4,7 @@ import os
 from pathlib import Path
 import subprocess
 
+
 def create_pyshare_dir():
     """Creates a directory where the received files will be stored"""
     dir_name = "pyshare_received"
@@ -16,8 +17,9 @@ def create_pyshare_dir():
     else:
         raise FileExistsError
 
+
 def install_deps():
-    """Install dependencies from te requirements.txt"""
+    """Install dependencies from the requirements.txt"""
     try:
         subprocess.call(["pip3", "install", "-r", "requirements.txt"])
     except:

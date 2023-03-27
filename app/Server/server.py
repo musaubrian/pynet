@@ -11,7 +11,7 @@ class PyshareServer:
         self.raw_ip = ""
         self.reversed_ip: List[str] = []
         self.gen_key: str = ""
-        self.port = 9999
+        self.port: int = 8080
 
     def _get_ip(self) -> str:
         """Returns hosts ip address."""

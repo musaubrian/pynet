@@ -8,7 +8,8 @@ class PyshareClient:
 
     def __init__(self) -> None:
         self.socket = socket
-        self.port: int = 9999
+        self.port: int = 8080
+        self.done_receiving = False
 
     def _get_client_ip(self) -> str:
         """gets the clients ip address"""
@@ -34,13 +35,12 @@ class PyshareClient:
         """Strips the slashes from the filename,
         which is sent as a file path"""
         self.slashed_var = slashed_var
-        self.unclean_file_name = self.slashed_var.split("/") or self.slashed_var.split(
-            "\\"
-        )
+        self.unclean_file_name = self.slashed_var.split("/")\
+                or self.slashed_var.split("\\")
         self.actual_name = self.unclean_file_name[-1]
         return self.actual_name
 
-    def receive_files(self, pairing_key: str):
+    def receive_files(self, pairing_key: str) -> bool:
         """Receive ftrasfered data and writes to appropriate file name"""
         self.connect_to_service(pairing_key)
         while True:
@@ -62,3 +62,6 @@ class PyshareClient:
 
                 with open(self.actual_file_name, "wb") as f:
                     f.write(self.received_data)
+            self.done_receiving = True
+
+        return self.done_receiving

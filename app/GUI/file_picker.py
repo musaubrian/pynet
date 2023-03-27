@@ -6,9 +6,7 @@ from app.Server.server import PyshareServer
 
 
 class SelectFileWindow(customtkinter.CTkToplevel):
-    """
-    Opens New window to select files or directories.
-    """
+    """Opens New window to select files or directories."""
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -72,6 +70,15 @@ class SelectFileWindow(customtkinter.CTkToplevel):
         self.list_file = picked_files.PickedFilesFrame(self, self.file_paths, width=400)
         self.list_file.grid(row=4, column=0, columnspan=4, padx=10, pady=10)
 
+        # transfer end
+        self.show_transfer_ended = customtkinter.CTkLabel(
+                self,
+                text="Sent all files successfully",
+                font=customtkinter.CTkFont(size=20, family="Arial")
+                )
+        self.show_transfer_ended.grid(row=6, column=0, columnspan=4, padx=10, pady=10)
+        self.show_transfer_ended.grid_remove()
+
     def open_file_dialog(self) -> None:
         """
         Opens the file picker pop up
@@ -90,4 +97,3 @@ class SelectFileWindow(customtkinter.CTkToplevel):
         """Handles the transfer logic"""
         self.server.create_service()
         self.server.send_files(files_to_send=self.file_paths)
-        print("Transfer button clicked")
