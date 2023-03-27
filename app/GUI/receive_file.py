@@ -1,12 +1,15 @@
 """Receive file popup"""
 import customtkinter
 
+from app.Client.client import PyshareClient
+
 
 class RecieveFileWindow(customtkinter.CTkToplevel):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.title("Recieve file")
         self.resizable(width=False, height=False)
+        self.client = PyshareClient()
 
         self.text_label = customtkinter.CTkLabel(
             master=self,
@@ -56,4 +59,5 @@ class RecieveFileWindow(customtkinter.CTkToplevel):
             self.error_label.grid()
         else:
             self.error_label.grid_remove()
-            print(key_value)
+            self.client.connect_to_service(key_value)
+            self.client.receive_files()

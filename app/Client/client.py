@@ -1,14 +1,14 @@
 """module contains contains a class PyshareClient
 which is the entry point of the client operations"""
 import socket
+from typing import List
 
 
 class PyshareClient:
     """contains client operations code"""
 
-    def __init__(self, pairing_key: str) -> None:
+    def __init__(self) -> None:
         self.socket = socket
-        self.pairing_key = pairing_key
         self.port: int = 9999
 
     def _get_client_ip(self) -> str:
@@ -16,15 +16,15 @@ class PyshareClient:
         self._client_ip = self.socket.gethostbyname(self.socket.gethostname())
         return self._client_ip
 
-    def _tweak_ip(self) -> str:
+    def _tweak_ip(self, unformatted_ip: str) -> str:
         """return the servers raw ip"""
-        self._unformatted_ip = self.pairing_key.split("-")[::-1]
+        self._unformatted_ip = unformatted_ip.split("-")[::-1]
         self._server_ip = ".".join(self._unformatted_ip)
         return self._server_ip
 
-    def connect_to_service(self):
+    def connect_to_service(self, pairing_key: str):
         """Creates a connection to the server"""
-        self.server_ip = self._tweak_ip()
+        self.server_ip = self._tweak_ip(pairing_key)
         self.pyshare_client = self.socket.socket(
             self.socket.AF_INET, self.socket.SOCK_STREAM
         )
@@ -40,7 +40,8 @@ class PyshareClient:
         self.actual_name = self.unclean_file_name[-1]
         return self.actual_name
 
-    def receive_file(self):
+    def receive_files(self):
+        """Receive ftrasfered data and writes to appropriate file name"""
         while True:
             self.file_data = self.pyshare_client.recv(1024).decode()
             if not self.file_data:
