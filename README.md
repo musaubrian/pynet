@@ -57,11 +57,11 @@ If you choose to receive files:
 
 As of now,
 
-- [x] Client can't receive the file if it the filename contains spaces.(one word files or files using snake_case)
+- ~~Client can't receive the file if it the filename contains spaces.(one word files or files using snake_case)~~
 
-- [ ] No indication if a file is being sent or received from the GUI
+- No indication if a file is being sent or received from the GUI
 
-- [ ] Currently slow when sending larger files
+- Currently slow when sending larger files
 
 ### License
 
