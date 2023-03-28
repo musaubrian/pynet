@@ -52,7 +52,7 @@ If you choose to receive files:
 
 As of now,
 
-- [ ] Client can't receive the file if it the filename contains spaces.(one word files or files using snake_case)
+- [x] Client can't receive the file if it the filename contains spaces.(one word files or files using snake_case)
 
 - [ ] No indication if a file is being sent or received from the GUI
 

@@ -1,4 +1,4 @@
-"""Module contains contains a class PyshareClient."""
+"""Module contains a class PyshareClient."""
 
 import os
 from pathlib import Path
