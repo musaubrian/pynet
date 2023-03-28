@@ -35,6 +35,7 @@ class PyshareServer:
         self._pyshare_server.listen()
         print(f"waiting for connection on {self.raw_ip}:{self.port}")
         self._pyshare_client, self.address = self._pyshare_server.accept()
+        print(f"connected to {self.address}")
 
     def replace_spaces(self, file: str) -> str:
         """Replace spaces with underscores."""
@@ -55,7 +56,7 @@ class PyshareServer:
             self.file_name = self.replace_spaces(file)
 
             self._pyshare_client.sendall(f"{self.file_name} {len(self._file_data)}".encode())
-            self._chunk_size = 1024
+            self._chunk_size = 5120
             self._num_chunks = len(self._file_data) // self._chunk_size
             self._remainder = len(self._file_data) % self._chunk_size
 

@@ -69,7 +69,7 @@ class PyshareClient:
                 )
 
                 while len(self.received_data) < self.file_size:
-                    self.data_chunk = self.pyshare_client.recv(1024)
+                    self.data_chunk = self.pyshare_client.recv(5120)
                     self.received_data += self.data_chunk
 
                 with open(self.full_path, "wb") as f:
