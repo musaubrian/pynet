@@ -48,6 +48,11 @@ If you choose to receive files:
 
 - [ ] Transfer video?
 
+- [ ] Transfer audio
+    - [x] mp4
+
+    - [ ] mp3
+
 ## Issues
 
 As of now,
