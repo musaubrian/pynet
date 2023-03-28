@@ -1,10 +1,12 @@
-"""Receive file popup"""
+"""Module defines a receive file popup."""
 import customtkinter
 
 from app.Client.client import PyshareClient
 
 
 class RecieveFileWindow(customtkinter.CTkToplevel):
+    """Create a top level window for the receive functionality."""
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.title("Recieve file")
@@ -35,7 +37,7 @@ class RecieveFileWindow(customtkinter.CTkToplevel):
         )
         self.pair = customtkinter.CTkButton(
             master=self,
-            text="pair",
+            text="Connect",
             font=customtkinter.CTkFont(size=24, family="Arial"),
             command=self.get_key,
         )
@@ -75,7 +77,7 @@ class RecieveFileWindow(customtkinter.CTkToplevel):
         self.success_message.grid_remove()
 
     def get_key(self):
-        """Get the key from the text box"""
+        """Get the key from the text box."""
         key_value = self.pairing_key.get()
         if len(key_value) != 9 and "-" not in key_value:
             self.error_label.grid()

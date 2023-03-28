@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-
+"""Set up pyshare's environment."""
 import os
 from pathlib import Path
 import subprocess
 
 
 def create_pyshare_dir():
-    """Creates a directory where the received files will be stored"""
+    """Create a directory where the received files will be stored."""
     dir_name = "pyshare_received"
     home_path = Path.home()
     full_path = Path(os.path.join(home_path, "Desktop", dir_name))
@@ -19,7 +19,7 @@ def create_pyshare_dir():
 
 
 def install_deps():
-    """Install dependencies"""
+    """Install dependencies."""
     try:
         subprocess.call(["pip3", "install", "customtkinter"])
     except:

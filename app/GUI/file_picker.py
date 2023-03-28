@@ -1,4 +1,4 @@
-"""Module defines class SelectFileWindow"""
+"""Module defines class SelectFileWindow."""
 from typing import List
 import customtkinter
 import app.GUI.picked_files as picked_files
@@ -6,7 +6,7 @@ from app.Server.server import PyshareServer
 
 
 class SelectFileWindow(customtkinter.CTkToplevel):
-    """Opens New window to select files or directories."""
+    """Open New window to select files or directories."""
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -72,18 +72,15 @@ class SelectFileWindow(customtkinter.CTkToplevel):
 
         # transfer end
         self.show_transfer_ended = customtkinter.CTkLabel(
-                self,
-                text="Sent all files successfully",
-                font=customtkinter.CTkFont(size=20, family="Arial")
-                )
+            self,
+            text="Sent all files successfully",
+            font=customtkinter.CTkFont(size=20, family="Arial"),
+        )
         self.show_transfer_ended.grid(row=6, column=0, columnspan=4, padx=10, pady=10)
         self.show_transfer_ended.grid_remove()
 
     def open_file_dialog(self) -> None:
-        """
-        Opens the file picker pop up
-        gets the path to the file
-        """
+        """Open the file picker pop up and gets the path to the file."""
         self.file_path = customtkinter.filedialog.askopenfile()
         if self.file_path is not None:
             if self.file_path.name not in self.file_paths:
@@ -94,6 +91,6 @@ class SelectFileWindow(customtkinter.CTkToplevel):
             print("File already selected")
 
     def handle_transfer(self) -> None:
-        """Handles the transfer logic"""
+        """Handle the transfer logic."""
         self.server.create_service()
         self.server.send_files(files_to_send=self.file_paths)

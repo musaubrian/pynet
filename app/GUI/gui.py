@@ -1,13 +1,11 @@
-"""Module defines a class PyshareGUI"""
+"""Module defines a class PyshareGUI."""
 import customtkinter
 from app.GUI.file_picker import SelectFileWindow
 from app.GUI.receive_file import RecieveFileWindow
 
 
 class PyshareGUI(customtkinter.CTk):
-    """
-    Graphical Interface for the PyShare programme
-    """
+    """Graphical Interface for the PyShare program."""
 
     def __init__(self) -> None:
         super().__init__()
@@ -50,9 +48,7 @@ class PyshareGUI(customtkinter.CTk):
         self.receive_button.grid(row=3, column=2, columnspan=2, padx=30, pady=30)
 
     def open_send_popup(self):
-        """
-        Opens the file selector window
-        """
+        """Open the file selector window."""
         if (
             self.select_file_window is None
             or not self.select_file_window.winfo_exists()
@@ -63,9 +59,7 @@ class PyshareGUI(customtkinter.CTk):
             self.select_file_window.focus()
 
     def open_recieve_popup(self):
-        """
-        Opens the receive popup window
-        """
+        """Open the receive popup window."""
         if (
             self.select_file_window is None
             or not self.select_file_window.winfo_exists()
