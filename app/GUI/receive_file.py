@@ -41,20 +41,17 @@ class RecieveFileWindow(customtkinter.CTkToplevel):
             font=customtkinter.CTkFont(size=24, family="Arial"),
             command=self.get_key,
         )
-        self.pair.grid(row=5, column=0, columnspan=8, padx=30, pady=30, sticky="nsew")
+        self.pair.grid(row=7, column=0, columnspan=8, padx=30, pady=30, sticky="nsew")
 
-        self.error_label = customtkinter.CTkLabel(
-            self,
-            text="Key is invalid, try again",
-            fg_color="red",
-            font=customtkinter.CTkFont(size=25, family="Arial"),
+        self.sending = customtkinter.CTkLabel(
+            master=self,
+            text="Recieving...",
+            font=customtkinter.CTkFont(size=24, family="Arial"),
         )
-        self.error_label.grid(
-            row=3, column=0, columnspan=5, sticky="nsew", padx=30, pady=10
+        self.sending.grid(
+            row=6, column=0, columnspan=7, padx=30, pady=10, sticky="nsew"
         )
-        self.error_label.grid_remove()
-
-        self.pair.grid(row=4, column=0, columnspan=8, padx=30, pady=30, sticky="nsew")
+        # self.sending.grid_remove()
 
         self.error_label = customtkinter.CTkLabel(
             self,
@@ -72,17 +69,22 @@ class RecieveFileWindow(customtkinter.CTkToplevel):
             font=customtkinter.CTkFont(size=25, family="Arial"),
         )
         self.success_message.grid(
-            row=4, column=0, columnspan=5, sticky="nsew", padx=30, pady=10
+            row=5, column=0, columnspan=5, sticky="nsew", padx=30, pady=10
         )
         self.success_message.grid_remove()
 
     def get_key(self):
         """Get the key from the text box."""
         key_value = self.pairing_key.get()
-        if len(key_value) != 9 and "-" not in key_value:
+        if "-" not in key_value or (len(key_value) < 8 or len(key_value) > 15):
             self.error_label.grid()
         else:
-            self.error_label.grid_remove()
-            self.received = self.pyshare_client.receive_files(key_value)
-            if self.received:
-                self.success_message.grid()
+            try:
+                self.error_label.grid_remove()
+                self.received = self.pyshare_client.receive_files(key_value)
+                self.sending.grid()
+                if self.received:
+                    self.sending.grid_remove()
+                    self.success_message.grid()
+            except:
+                self.error_label.grid()

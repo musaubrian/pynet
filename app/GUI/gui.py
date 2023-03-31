@@ -1,5 +1,6 @@
 """Module defines a class PyshareGUI."""
 import customtkinter
+
 from app.GUI.file_picker import SelectFileWindow
 from app.GUI.receive_file import RecieveFileWindow
 

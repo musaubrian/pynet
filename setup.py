@@ -11,8 +11,6 @@ def create_pyshare_dir():
     home_path = Path.home()
     full_path = Path(os.path.join(home_path, "Desktop", dir_name))
     if full_path.exists() is False:
-        # change to home and create the directory
-        os.chdir(home_path)
         os.mkdir(full_path)
     else:
         raise FileExistsError

@@ -1,6 +1,8 @@
 """Module defines class SelectFileWindow."""
 from typing import List
+
 import customtkinter
+
 import app.GUI.picked_files as picked_files
 from app.Server.server import PyshareServer
 
@@ -22,12 +24,11 @@ class SelectFileWindow(customtkinter.CTkToplevel):
         # Title
         self.picker_label = customtkinter.CTkLabel(
             master=self,
-            text="Pick a file or a folder to transfer",
-            font=customtkinter.CTkFont(size=30, family="Arial"),
+            text="Pick a file to transfer",
+            font=customtkinter.CTkFont(size=30, family="Arial", weight="bold"),
         )
         self.picker_label.grid(
             row=0,
-            rowspan=2,
             column=0,
             columnspan=4,
             padx=20,
@@ -36,10 +37,14 @@ class SelectFileWindow(customtkinter.CTkToplevel):
         )
 
         # pairing key label
+        self.pairing_key_text = customtkinter.CTkLabel(
+            self, text="Pairing key: ", font=self.button_style
+        )
+        self.pairing_key_text.grid(column=0, columnspan=5, row=1)
         self.pairing_key_label = customtkinter.CTkLabel(
             master=self, text=self.pairing_key, font=self.button_style
         )
-        self.pairing_key_label.grid(column=0, columnspan=5, row=2)
+        self.pairing_key_label.grid(column=0, columnspan=5, row=2, pady=10)
 
         self.line = customtkinter.CTkLabel(master=self, text="- " * 55)
         self.line.grid(column=0, columnspan=4, row=3)
@@ -64,8 +69,18 @@ class SelectFileWindow(customtkinter.CTkToplevel):
             command=self.handle_transfer,
         )
         self.start_transfer.grid(
-            column=1, columnspan=2, row=6, sticky="ew", pady=(10, 30)
+            column=1, columnspan=2, row=7, sticky="ew", pady=(10, 30)
         )
+
+        self.ongoing_transfer = customtkinter.CTkLabel(
+            master=self,
+            text="Transfering...",
+            font=customtkinter.CTkFont(size=25, family="Arial"),
+        )
+        self.ongoing_transfer.grid(
+            column=1, columnspan=2, row=6, sticky="ew", pady=10, padx=30
+        )
+        self.ongoing_transfer.grid_remove()
 
         self.list_file = picked_files.PickedFilesFrame(self, self.file_paths, width=400)
         self.list_file.grid(row=4, column=0, columnspan=4, padx=10, pady=10)
@@ -75,6 +90,7 @@ class SelectFileWindow(customtkinter.CTkToplevel):
             self,
             text="Sent all files successfully",
             font=customtkinter.CTkFont(size=20, family="Arial"),
+            fg_color="green",
         )
         self.show_transfer_ended.grid(row=6, column=0, columnspan=4, padx=10, pady=10)
         self.show_transfer_ended.grid_remove()
@@ -93,4 +109,7 @@ class SelectFileWindow(customtkinter.CTkToplevel):
     def handle_transfer(self) -> None:
         """Handle the transfer logic."""
         self.server.create_service()
+        self.ongoing_transfer.grid()
         self.server.send_files(files_to_send=self.file_paths)
+        self.ongoing_transfer.grid_remove()
+        self.show_transfer_ended.grid()
