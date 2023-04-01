@@ -51,7 +51,7 @@ class RecieveFileWindow(customtkinter.CTkToplevel):
         self.sending.grid(
             row=6, column=0, columnspan=7, padx=30, pady=10, sticky="nsew"
         )
-        # self.sending.grid_remove()
+        self.sending.grid_remove()
 
         self.error_label = customtkinter.CTkLabel(
             self,
