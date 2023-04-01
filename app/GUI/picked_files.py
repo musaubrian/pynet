@@ -23,6 +23,7 @@ class PickedFilesFrame(customtkinter.CTkScrollableFrame):
                 anchor="nw",
             )
             self.file_list_label.grid(
-                row=len(self.file_list_labels), column=0, sticky="ew", pady=10, padx=20
+                row=len(self.file_list_labels),
+                column=0, sticky="ew", pady=10, padx=20
             )
             self.file_list_labels.append(self.file_list_label)

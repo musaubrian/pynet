@@ -19,7 +19,12 @@ class RecieveFileWindow(customtkinter.CTkToplevel):
             font=customtkinter.CTkFont(size=30, family="Arial"),
         )
         self.text_label.grid(
-            row=0, column=0, columnspan=7, padx=30, pady=(30, 10), sticky="nsew"
+            row=0,
+            column=0,
+            columnspan=7,
+            padx=30,
+            pady=(30, 10),
+            sticky="nsew"
         )
         self.pairing_key = customtkinter.CTkEntry(
             self,
@@ -41,7 +46,14 @@ class RecieveFileWindow(customtkinter.CTkToplevel):
             font=customtkinter.CTkFont(size=24, family="Arial"),
             command=self.get_key,
         )
-        self.pair.grid(row=7, column=0, columnspan=8, padx=30, pady=30, sticky="nsew")
+        self.pair.grid(
+                row=7,
+                column=0,
+                columnspan=8,
+                padx=30,
+                pady=30,
+                sticky="nsew"
+                )
 
         self.sending = customtkinter.CTkLabel(
             master=self,
@@ -76,7 +88,8 @@ class RecieveFileWindow(customtkinter.CTkToplevel):
     def get_key(self):
         """Get the key from the text box."""
         key_value = self.pairing_key.get()
-        if "-" not in key_value or (len(key_value) < 8 or len(key_value) > 15):
+        if "-" not in key_value or\
+                ((len(key_value) < 8 or len(key_value) > 15)):
             self.error_label.grid()
         else:
             try:

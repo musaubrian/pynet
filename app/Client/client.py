@@ -15,7 +15,8 @@ class PyshareClient:
 
     def _get_client_ip(self) -> str:
         """Get the clients ip address."""
-        self._client_ip = self.socket.gethostbyname(self.socket.gethostname())
+        self._client_ip = self.socket.gethostbyname(
+                self.socket.gethostname())
         return self._client_ip
 
     def _tweak_ip(self, unformatted_ip: str) -> str:
@@ -36,9 +37,8 @@ class PyshareClient:
     def _strip_slashes(self, slashed_var: str) -> str:
         """Strip the slashes from the filename."""
         self.slashed_var = slashed_var
-        self.unclean_file_name = self.slashed_var.split("/") or self.slashed_var.split(
-            "\\"
-        )
+        self.unclean_file_name = self.slashed_var.split("/")\
+            or self.slashed_var.split("\\")
         self.actual_name = self.unclean_file_name[-1]
         return self.actual_name
 

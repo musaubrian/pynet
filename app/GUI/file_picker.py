@@ -25,7 +25,8 @@ class SelectFileWindow(customtkinter.CTkToplevel):
         self.picker_label = customtkinter.CTkLabel(
             master=self,
             text="Pick a file to transfer",
-            font=customtkinter.CTkFont(size=30, family="Arial", weight="bold"),
+            font=customtkinter.CTkFont(
+                size=30, family="Arial", weight="bold"),
         )
         self.picker_label.grid(
             row=0,
@@ -65,7 +66,8 @@ class SelectFileWindow(customtkinter.CTkToplevel):
         self.start_transfer = customtkinter.CTkButton(
             master=self,
             text="Transfer",
-            font=customtkinter.CTkFont(size=30, family="Arial", weight="bold"),
+            font=customtkinter.CTkFont(
+                size=30, family="Arial", weight="bold"),
             command=self.handle_transfer,
         )
         self.start_transfer.grid(
@@ -82,7 +84,8 @@ class SelectFileWindow(customtkinter.CTkToplevel):
         )
         self.ongoing_transfer.grid_remove()
 
-        self.list_file = picked_files.PickedFilesFrame(self, self.file_paths, width=400)
+        self.list_file = picked_files.PickedFilesFrame(
+                self, self.file_paths, width=400)
         self.list_file.grid(row=4, column=0, columnspan=4, padx=10, pady=10)
 
         # transfer end
@@ -92,7 +95,8 @@ class SelectFileWindow(customtkinter.CTkToplevel):
             font=customtkinter.CTkFont(size=20, family="Arial"),
             fg_color="green",
         )
-        self.show_transfer_ended.grid(row=6, column=0, columnspan=4, padx=10, pady=10)
+        self.show_transfer_ended.grid(
+                row=6, column=0, columnspan=4, padx=10, pady=10)
         self.show_transfer_ended.grid_remove()
 
     def open_file_dialog(self) -> None:
