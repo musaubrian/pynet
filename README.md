@@ -1,5 +1,5 @@
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 # PyShare
-
 PyShare is a user-friendly and intuitive filesharing service built with CustomTkinter that allows users to easily share files with each other over the same network
 
 ## Installation
