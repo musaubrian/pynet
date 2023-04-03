@@ -54,6 +54,7 @@ class PyshareClient:
                 break
             else:
                 self.file_name, self.file_size = self.file_data.split()
+                print(self.file_data)
                 self.actual_file_name = self._strip_slashes(self.file_name)
                 self.file_size = int(self.file_size)
                 self.received_data = b""
@@ -69,7 +70,7 @@ class PyshareClient:
                 )
 
                 while len(self.received_data) < self.file_size:
-                    self.data_chunk = self.pyshare_client.recv(5120)
+                    self.data_chunk = self.pyshare_client.recv(1024)
                     self.received_data += self.data_chunk
 
                 with open(self.full_path, "wb") as f:

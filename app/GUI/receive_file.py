@@ -78,7 +78,7 @@ class RecieveFileWindow(customtkinter.CTkToplevel):
         self.success_message = customtkinter.CTkLabel(
             self,
             text="Files saved at /Desktop/pyshare_received",
-            font=customtkinter.CTkFont(size=25, family="Arial"),
+            font=customtkinter.CTkFont(size=20, family="Arial"),
         )
         self.success_message.grid(
             row=5, column=0, columnspan=5, sticky="nsew", padx=30, pady=10
@@ -90,14 +90,11 @@ class RecieveFileWindow(customtkinter.CTkToplevel):
         key_value = self.pairing_key.get()
         if "-" not in key_value or\
                 ((len(key_value) < 8 or len(key_value) > 15)):
-            self.error_label.grid()
+                    self.error_label.grid()
         else:
-            try:
-                self.error_label.grid_remove()
-                self.received = self.pyshare_client.receive_files(key_value)
-                self.sending.grid()
-                if self.received:
-                    self.sending.grid_remove()
-                    self.success_message.grid()
-            except:
-                self.error_label.grid()
+            self.error_label.grid_remove()
+            self.received = self.pyshare_client.receive_files(key_value)
+            self.sending.grid()
+            if self.received:
+                self.sending.grid_remove()
+                self.success_message.grid()

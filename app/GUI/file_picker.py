@@ -107,8 +107,10 @@ class SelectFileWindow(customtkinter.CTkToplevel):
                 self.file_paths.append(self.file_path.name)
                 print(self.file_paths)
                 self.list_file.display_files(self.file_paths)
+            else:
+                print("file already selected")
         else:
-            print("File already selected")
+            print("Could not get file from popup")
 
     def handle_transfer(self) -> None:
         """Handle the transfer logic."""
