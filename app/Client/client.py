@@ -44,12 +44,14 @@ class PyshareClient:
 
     def receive_files(self, pairing_key: str) -> bool:
         """Receive transfered data and writes to appropriate file name."""
+        self.receiving = True
         self.connect_to_service(pairing_key)
-        while True:
+        while self.receiving:
             self.file_data = self.pyshare_client.recv(1024).decode()
             if not self.file_data:
                 break
             elif self.file_data == "done":
+                self.receiving = False
                 self.pyshare_client.close()
                 break
             else:
@@ -70,11 +72,12 @@ class PyshareClient:
                 )
 
                 while len(self.received_data) < self.file_size:
-                    self.data_chunk = self.pyshare_client.recv(1024)
+                    self.data_chunk = self.pyshare_client.recv(5120)
                     self.received_data += self.data_chunk
 
                 with open(self.full_path, "wb") as f:
                     f.write(self.received_data)
             self.done_receiving = True
+            self.receiving = False
 
         return self.done_receiving

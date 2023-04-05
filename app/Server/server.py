@@ -57,7 +57,7 @@ class PyshareServer:
 
             self._pyshare_client.sendall(
                     f"{self.file_name} {len(self._file_data)}".encode())
-            self._chunk_size = 1024
+            self._chunk_size = 5120
             self._num_chunks = len(self._file_data) // self._chunk_size
             self._remainder = len(self._file_data) % self._chunk_size
 
