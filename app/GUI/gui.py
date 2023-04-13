@@ -58,8 +58,9 @@ class PyshareGUI(customtkinter.CTk):
         self.receive_button.grid(
                 row=3, column=2, columnspan=2, padx=30, pady=30)
 
+    @staticmethod
     def set_font_style(
-            self, font_size: int, font_weight: str
+            font_size: int, font_weight: str
             ) -> customtkinter.CTkFont:
         """Return CTkFont styles for the button or label"""
         if font_weight == "bold":

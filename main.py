@@ -1,3 +1,4 @@
+"""Entry point for pyshare."""
 import app.GUI.gui
 
 pyshare = app.GUI.gui.PyshareGUI()
