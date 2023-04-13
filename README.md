@@ -46,7 +46,9 @@ If you choose to receive files:
 
 - [x] Transfer images
 
-- [ ] Transfer video?
+- [x] Transfer video?
+> Transfers some types of video.
+> Others won't because of an encoding error.
 
 - [ ] Transfer audio
     - [x] mp4
@@ -60,8 +62,11 @@ As of now,
 - ~~Client can't receive the file if it the filename contains spaces.(one word files or files using snake_case)~~
 
 - No indication if a file is being sent or received from the GUI
+> Only shows after that the file has been sent on server. ON client it shows where the file has been saved.
 
 - Currently slow when sending larger files
+
+- Only transfers on file at a time. ~You have to disconnect to send a different one
 
 ### License
 
