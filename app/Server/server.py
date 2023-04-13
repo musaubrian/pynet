@@ -38,7 +38,13 @@ class PyshareServer:
         print(f"connected to {self.address}")
 
     def replace_spaces(self, file: str) -> str:
-        """Replace spaces with underscores."""
+        """Replace spaces with underscores.
+
+        ---
+        >>> from app.Server.server import PyshareServer
+        >>> server.replace_spaces("file name with spaces.mp4")
+        'file_name_with_spaces.mp4'
+        """
         self.clean_filename = file.replace(" ", "_")
         return self.clean_filename
 
