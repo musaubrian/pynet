@@ -1,7 +1,7 @@
-"""Entry point for pyshare."""
+"""Entry point for pynet."""
 import app.GUI.gui
 
-pyshare = app.GUI.gui.PyshareGUI()
+pynet = app.GUI.gui.PynetGUI()
 
 if __name__ == "__main__":
-    pyshare.mainloop()
+    pynet.mainloop()

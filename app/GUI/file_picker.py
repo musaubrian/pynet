@@ -4,7 +4,7 @@ from typing import List
 import customtkinter
 
 import app.GUI.picked_files as picked_files
-from app.Server.server import PyshareServer
+from app.Server.server import PynetServer
 
 
 class SelectFileWindow(customtkinter.CTkToplevel):
@@ -18,7 +18,7 @@ class SelectFileWindow(customtkinter.CTkToplevel):
         self.button_style = customtkinter.CTkFont(size=24, family="Arial")
         self.file_paths: List[str] = []
         self.dir_path = ""
-        self.server = PyshareServer()
+        self.server = PynetServer()
         self.pairing_key: str = self.server.create_pairing_key()
 
         # Title

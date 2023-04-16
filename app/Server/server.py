@@ -3,8 +3,8 @@ import socket
 from typing import List
 
 
-class PyshareServer:
-    """Define functions related to the pyshare server."""
+class PynetServer:
+    """Define functions related to the pynet server."""
 
     def __init__(self) -> None:
         self.socket = socket
@@ -28,20 +28,20 @@ class PyshareServer:
 
     def create_service(self):
         """Listen for connection to server."""
-        self._pyshare_server = self.socket.socket(
+        self._pynet_server = self.socket.socket(
             self.socket.AF_INET, self.socket.SOCK_STREAM
         )
-        self._pyshare_server.bind((self.raw_ip, self.port))
-        self._pyshare_server.listen()
+        self._pynet_server.bind((self.raw_ip, self.port))
+        self._pynet_server.listen()
         print(f"waiting for connection on {self.raw_ip}:{self.port}")
-        self._pyshare_client, self.address = self._pyshare_server.accept()
+        self._pynet_client, self.address = self._pynet_server.accept()
         print(f"connected to {self.address}")
 
     def replace_spaces(self, file: str) -> str:
         """Replace spaces with underscores.
 
         ---
-        >>> from app.Server.server import PyshareServer
+        >>> from app.Server.server import PynetServer
         >>> server.replace_spaces("file name with spaces.mp4")
         'file_name_with_spaces.mp4'
         """
@@ -61,7 +61,7 @@ class PyshareServer:
 
             self.file_name = self.replace_spaces(file)
 
-            self._pyshare_client.sendall(
+            self._pynet_client.sendall(
                     f"{self.file_name} {len(self._file_data)}".encode())
             self._chunk_size = 5120
             self._num_chunks = len(self._file_data) // self._chunk_size
@@ -71,14 +71,14 @@ class PyshareServer:
                 self._start = i * self._chunk_size
                 self._end = (i + 1) * self._chunk_size
                 self._chunk = self._file_data[self._start:self._end]
-                self._pyshare_client.sendall(self._chunk)
+                self._pynet_client.sendall(self._chunk)
 
             if self._remainder:
-                self._pyshare_client.sendall(
+                self._pynet_client.sendall(
                         self._file_data[-self._remainder:])
 
             print(f"Sent {self.file_name} successfully")
 
-        self._pyshare_client.sendall(b"done")
-        self._pyshare_client.close()
-        self._pyshare_server.close()
+        self._pynet_client.sendall(b"done")
+        self._pynet_client.close()
+        self._pynet_server.close()

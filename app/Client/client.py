@@ -1,12 +1,12 @@
-"""Module contains a class PyshareClient."""
+"""Module contains a class PynetClient."""
 
 import os
 from pathlib import Path
 import socket
 
 
-class PyshareClient:
-    """Contain pyshare client operations code."""
+class PynetClient:
+    """Contain pynet client operations code."""
 
     def __init__(self) -> None:
         self.socket = socket
@@ -28,11 +28,11 @@ class PyshareClient:
     def connect_to_service(self, pairing_key: str):
         """Create a connection to the server."""
         self.server_ip = self._tweak_ip(pairing_key)
-        self.pyshare_client = self.socket.socket(
+        self.pynet_client = self.socket.socket(
             self.socket.AF_INET, self.socket.SOCK_STREAM
         )
         print(self._server_ip)
-        self.pyshare_client.connect((self.server_ip, self.port))
+        self.pynet_client.connect((self.server_ip, self.port))
 
     def _strip_slashes(self, slashed_var: str) -> str:
         """Strip the slashes from the filename."""
@@ -47,12 +47,12 @@ class PyshareClient:
         self.receiving = True
         self.connect_to_service(pairing_key)
         while self.receiving:
-            self.file_data = self.pyshare_client.recv(1024).decode()
+            self.file_data = self.pynet_client.recv(1024).decode()
             if not self.file_data:
                 break
             elif self.file_data == "done":
                 self.receiving = False
-                self.pyshare_client.close()
+                self.pynet_client.close()
                 break
             else:
                 self.file_name, self.file_size = self.file_data.split()
@@ -66,13 +66,13 @@ class PyshareClient:
                     os.path.join(
                         self.home_path,
                         "Desktop",
-                        "pyshare_received",
+                        "pynet_received",
                         self.actual_file_name,
                     )
                 )
 
                 while len(self.received_data) < self.file_size:
-                    self.data_chunk = self.pyshare_client.recv(5120)
+                    self.data_chunk = self.pynet_client.recv(5120)
                     self.received_data += self.data_chunk
 
                 with open(self.full_path, "wb") as f:

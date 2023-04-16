@@ -1,26 +1,26 @@
-"""Module defines a class PyshareGUI."""
+"""Module defines a class PynetGUI."""
 import customtkinter
 
 from app.GUI.file_picker import SelectFileWindow
 from app.GUI.receive_file import RecieveFileWindow
 
 
-class PyshareGUI(customtkinter.CTk):
-    """Graphical Interface for the PyShare program."""
+class PynetGUI(customtkinter.CTk):
+    """Graphical Interface for the Pynet program."""
 
     def __init__(self) -> None:
         super().__init__()
-        self.title("PyShare | File sharing")
+        self.title("Pynet | File sharing")
         self.resizable(width=False, height=False)
         self.select_file_window = None
 
-        # Setup PyShare logo(name)
-        self.pyshare_logo = customtkinter.CTkLabel(
+        # Setup Pynet logo(name)
+        self.pynet_logo = customtkinter.CTkLabel(
             master=self,
-            text="PyShare",
+            text="Pynet",
             font=self.set_font_style(font_size=50, font_weight="bold")
             )
-        self.pyshare_logo.grid(
+        self.pynet_logo.grid(
             column=0,
             columnspan=4,
             row=0,
@@ -29,13 +29,13 @@ class PyshareGUI(customtkinter.CTk):
             padx=20,
             pady=(20, 5)
         )
-        # Description below the PyShare name
-        self.pyshare_description = customtkinter.CTkLabel(
+        # Description below the Pynet name
+        self.pynet_description = customtkinter.CTkLabel(
             master=self,
             text="File sharing made easy",
             font=self.set_font_style(font_size=20, font_weight="")
             )
-        self.pyshare_description.grid(
+        self.pynet_description.grid(
             column=0, columnspan=4, row=2, sticky="ew", padx=20, pady=5
         )
 

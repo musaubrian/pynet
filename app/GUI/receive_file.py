@@ -1,7 +1,7 @@
 """Module defines a receive file popup."""
 import customtkinter
 
-from app.Client.client import PyshareClient
+from app.Client.client import PynetClient
 
 
 class RecieveFileWindow(customtkinter.CTkToplevel):
@@ -11,7 +11,7 @@ class RecieveFileWindow(customtkinter.CTkToplevel):
         super().__init__(*args, **kwargs)
         self.title("Recieve file")
         self.resizable(width=False, height=False)
-        self.pyshare_client = PyshareClient()
+        self.pynet_client = PynetClient()
 
         self.text_label = customtkinter.CTkLabel(
             master=self,
@@ -77,7 +77,7 @@ class RecieveFileWindow(customtkinter.CTkToplevel):
         self.error_label.grid_remove()
         self.success_message = customtkinter.CTkLabel(
             self,
-            text="Files saved at /Desktop/pyshare_received",
+            text="Files saved at /Desktop/pynet_received",
             font=customtkinter.CTkFont(size=20, family="Arial"),
         )
         self.success_message.grid(
@@ -93,7 +93,7 @@ class RecieveFileWindow(customtkinter.CTkToplevel):
                     self.error_label.grid()
         else:
             self.error_label.grid_remove()
-            self.received = self.pyshare_client.receive_files(key_value)
+            self.received = self.pynet_client.receive_files(key_value)
             self.sending.grid()
             while not self.received:
                 self.sending.grid_remove()

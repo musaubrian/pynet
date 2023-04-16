@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Set up pyshare's environment."""
+"""Set up pynet's environment."""
 import os
 from pathlib import Path
 import subprocess
@@ -7,7 +7,7 @@ import subprocess
 
 def create_pyshare_dir():
     """Create a directory where the received files will be stored."""
-    dir_name = "pyshare_received"
+    dir_name = "pynet_received"
     home_path = Path.home()
     full_path = Path(os.path.join(home_path, "Desktop", dir_name))
     if full_path.exists() is False:
