@@ -1,15 +1,15 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-# PyShare
-PyShare is a user-friendly and intuitive filesharing service built with CustomTkinter that allows users to easily share files with each other over the same network
+# Pynet
+Pynet is a user-friendly and intuitive filesharing service built with CustomTkinter that allows users to easily share files with each other over the same network
 
 ## Installation
 
-Clone or download the PyShare repository to your computer.
+Clone or download the Pynet repository to your computer.
 
 ```sh
-git clone git@github.com:musaubrian/pyshare
+git clone git@github.com:musaubrian/pynet
 
-cd pyshare
+cd pynet
 ```
 
 ### Setup
@@ -22,14 +22,14 @@ python3 setup.py
 
 ## Usage
 
-When PyShare launches, you will be prompted to choose whether you want to send or receive files.
+When Pynet launches, you will be prompted to choose whether you want to send or receive files.
 
 ### Sending Files
 
 If you choose to send files:
 
 - Select the files you want to send.
-- PyShare will generate a pairing key that you will need to share with the recipient.
+- Pynet will generate a pairing key that you will need to share with the recipient.
 - Click the "Transfer" button.
 
 ### Receiving Files
@@ -38,7 +38,7 @@ If you choose to receive files:
 
 - Enter the pairing key provided by the sender.
 - Click the "Receive" button.
-- PyShare will begin receiving the files and save them in `Desktop/pyshare_received`
+- Pynet will begin receiving the files and save them in `Desktop/pynet_received`
 
 ## Tasks
 
