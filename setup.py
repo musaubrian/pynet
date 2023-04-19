@@ -5,7 +5,7 @@ from pathlib import Path
 import subprocess
 
 
-def create_pyshare_dir():
+def create_pynet_dir():
     """Create a directory where the received files will be stored."""
     dir_name = "pynet_received"
     home_path = Path.home()
