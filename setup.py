@@ -25,5 +25,5 @@ def install_deps():
 
 
 if __name__ == "__main__":
-    create_pyshare_dir()
+    create_pynet_dir()
     install_deps()
