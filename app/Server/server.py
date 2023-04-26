@@ -2,6 +2,8 @@
 import socket
 from typing import List
 
+import netifaces
+
 
 class PynetServer:
     """Define functions related to the pynet server."""
@@ -10,12 +12,20 @@ class PynetServer:
         self.socket = socket
         self.raw_ip = ""
         self.reversed_ip: List[str] = []
+        self.interfaces = netifaces.interfaces()
         self.gen_key: str = ""
         self.port: int = 8080
 
     def _get_ip(self) -> str:
         """Return hosts ip address."""
-        self._raw_ip = self.socket.gethostbyname(self.socket.gethostname())
+        for interface in self.interfaces:
+            interface_details = netifaces.ifaddresses(interface)
+            if netifaces.AF_INET in interface_details:
+                addresses = interface_details[netifaces.AF_INET]
+                if len(addresses) > 0 and 'addr' in addresses[0]\
+                        and not addresses[0]['addr'].startswith('127.'):
+                    self._raw_ip = addresses[0]['addr']
+                    break
         return self._raw_ip
 
     def create_pairing_key(self) -> str:
