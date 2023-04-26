@@ -11,7 +11,7 @@ class PynetClient:
     def __init__(self) -> None:
         self.socket = socket
         self.port: int = 8080
-        self.done_receiving = False
+        self.receiving = True
 
     def _get_client_ip(self) -> str:
         """Get the clients ip address."""
@@ -42,15 +42,14 @@ class PynetClient:
         self.actual_name = self.unclean_file_name[-1]
         return self.actual_name
 
-    def receive_files(self, pairing_key: str) -> bool:
+    def receive_files(self, pairing_key: str):
         """Receive transfered data and writes to appropriate file name."""
-        self.receiving = True
         self.connect_to_service(pairing_key)
         while self.receiving:
             self.file_data = self.pynet_client.recv(1024).decode()
             if not self.file_data:
                 break
-            elif self.file_data == "done":
+            elif self.file_data == " ":
                 self.receiving = False
                 self.pynet_client.close()
                 break
@@ -77,7 +76,4 @@ class PynetClient:
 
                 with open(self.full_path, "wb") as f:
                     f.write(self.received_data)
-            self.done_receiving = True
             self.receiving = False
-
-        return self.done_receiving

@@ -55,16 +55,6 @@ class RecieveFileWindow(customtkinter.CTkToplevel):
                 sticky="nsew"
                 )
 
-        self.sending = customtkinter.CTkLabel(
-            master=self,
-            text="Recieving...",
-            font=customtkinter.CTkFont(size=24, family="Arial"),
-        )
-        self.sending.grid(
-            row=6, column=0, columnspan=7, padx=30, pady=10, sticky="nsew"
-        )
-        self.sending.grid_remove()
-
         self.error_label = customtkinter.CTkLabel(
             self,
             text="Key is invalid, try again",
@@ -93,8 +83,5 @@ class RecieveFileWindow(customtkinter.CTkToplevel):
                     self.error_label.grid()
         else:
             self.error_label.grid_remove()
-            self.received = self.pynet_client.receive_files(key_value)
-            self.sending.grid()
-            while not self.received:
-                self.sending.grid_remove()
-                self.success_message.grid()
+            self.pynet_client.receive_files(key_value)
+            self.success_message.grid()
