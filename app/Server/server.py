@@ -89,6 +89,5 @@ class PynetServer:
 
             print(f"Sent {self.file_name} successfully")
 
-        self._pynet_client.sendall(b" ")
         self._pynet_client.close()
         self._pynet_server.close()

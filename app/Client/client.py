@@ -49,10 +49,6 @@ class PynetClient:
             self.file_data = self.pynet_client.recv(1024).decode()
             if not self.file_data:
                 break
-            elif self.file_data == " ":
-                self.receiving = False
-                self.pynet_client.close()
-                break
             else:
                 self.file_name, self.file_size = self.file_data.split()
                 print(self.file_data)
