@@ -18,15 +18,18 @@ class PynetServer:
 
     def _get_ip(self) -> str:
         """Return hosts ip address."""
-        for interface in self.interfaces:
-            interface_details = netifaces.ifaddresses(interface)
-            if netifaces.AF_INET in interface_details:
-                addresses = interface_details[netifaces.AF_INET]
-                if len(addresses) > 0 and 'addr' in addresses[0]\
-                        and not addresses[0]['addr'].startswith('127.'):
-                    self._raw_ip = addresses[0]['addr']
-                    break
-        return self._raw_ip
+        try:
+            for interface in self.interfaces:
+                interface_details = netifaces.ifaddresses(interface)
+                if netifaces.AF_INET in interface_details:
+                    addresses = interface_details[netifaces.AF_INET]
+                    if len(addresses) > 0 and 'addr' in addresses[0]\
+                            and not addresses[0]['addr'].startswith('127.'):
+                        self._raw_ip = addresses[0]['addr']
+                        break
+            return self._raw_ip
+        except Exception as ex:
+            return f"error {ex}"
 
     def create_pairing_key(self) -> str:
         """Return the reversed ip as a key to connect to."""

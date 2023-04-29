@@ -42,10 +42,19 @@ class SelectFileWindow(customtkinter.CTkToplevel):
             self, text="Pairing key: ", font=self.button_style
         )
         self.pairing_key_text.grid(column=0, columnspan=5, row=1)
-        self.pairing_key_label = customtkinter.CTkLabel(
-            master=self, text=self.pairing_key, font=self.button_style
-        )
-        self.pairing_key_label.grid(column=0, columnspan=5, row=2, pady=10)
+        if "error" in self.pairing_key:
+            self.pairing_key_label = customtkinter.CTkLabel(
+                    master=self,
+                    text="You need to be on a network\nTry disabling airplane mode",
+                    font=self.button_style,
+                    bg_color="red"
+                )
+            self.pairing_key_label.grid(column=0, columnspan=5, row=2, pady=10)
+        elif "error" not in self.pairing_key: 
+            self.pairing_key_label = customtkinter.CTkLabel(
+                        master=self, text=self.pairing_key, font=self.button_style
+                        )
+            self.pairing_key_label.grid(column=0, columnspan=5, row=2, pady=10)
 
         self.line = customtkinter.CTkLabel(master=self, text="- " * 55)
         self.line.grid(column=0, columnspan=4, row=3)
@@ -73,16 +82,6 @@ class SelectFileWindow(customtkinter.CTkToplevel):
         self.start_transfer.grid(
             column=1, columnspan=2, row=7, sticky="ew", pady=(10, 30)
         )
-
-        self.ongoing_transfer = customtkinter.CTkLabel(
-            master=self,
-            text="Transfering...",
-            font=customtkinter.CTkFont(size=25, family="Arial"),
-        )
-        self.ongoing_transfer.grid(
-            column=1, columnspan=2, row=6, sticky="ew", pady=10, padx=30
-        )
-        self.ongoing_transfer.grid_remove()
 
         self.list_file = picked_files.PickedFilesFrame(
                 self, self.file_paths, width=400)
@@ -115,7 +114,5 @@ class SelectFileWindow(customtkinter.CTkToplevel):
     def handle_transfer(self) -> None:
         """Handle the transfer logic."""
         self.server.create_service()
-        self.ongoing_transfer.grid()
         self.server.send_files(files_to_send=self.file_paths)
-        self.ongoing_transfer.grid_remove()
         self.show_transfer_ended.grid()
