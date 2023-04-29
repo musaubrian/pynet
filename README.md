@@ -22,6 +22,11 @@ python3 setup.py
 
 ## Usage
 
+Launch it
+```sh
+python3 main.py
+```
+
 When Pynet launches, you will be prompted to choose whether you want to send or receive files.
 
 ### Sending Files
@@ -47,13 +52,12 @@ If you choose to receive files:
 - [x] Transfer images
 
 - [x] Transfer video?
-> Transfers some types of video.
-> Others won't because of an encoding error.
-
-- [ ] Transfer audio
     - [x] mp4
+>Transfers some types of video.
+Others won't because of an encoding error.
 
-    - [ ] mp3
+- [x] Transfer audio
+    - [x] mp3
 
 ## Issues
 
@@ -68,6 +72,4 @@ As of now,
 
 - Only transfers on file at a time. ~You have to disconnect to send a different one
 
-### License
-
-[MIT](./License)
+### [License](./License)
