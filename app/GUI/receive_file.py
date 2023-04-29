@@ -40,6 +40,8 @@ class RecieveFileWindow(customtkinter.CTkToplevel):
             pady=10,
             sticky="nsew",
         )
+        self.pairing_key.focus()
+
         self.pair = customtkinter.CTkButton(
             master=self,
             text="Connect",

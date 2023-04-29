@@ -8,7 +8,7 @@ from app.Server.server import PynetServer
 
 
 class SelectFileWindow(customtkinter.CTkToplevel):
-    """Open New window to select files or directories."""
+    """Open New window to select files."""
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
